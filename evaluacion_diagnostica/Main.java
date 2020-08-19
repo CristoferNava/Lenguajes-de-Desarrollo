@@ -13,17 +13,14 @@ public class Main {
         String option = "d";
 
         while (!(option.equals("s") || option.equals("S"))) {
-
             System.out.println("\nElija la opción a realizar:\n1) Agregar\n2) Buscar\n3) Actualizar\n4) Eliminar\ns) Salir");
-            String optionCrud = input.nextLine();
+            option = input.nextLine();
 
-            if (optionCrud.equals("1")) {
+            if (option.equals("1")) {
                 controller.addRestaurant();
-            } else if (optionCrud.equals("2")) {
+            } else if (option.equals("2")) {
                 controller.searchRestaurant();
             }
-
-            option = input.nextLine();
         }
     }
 }
