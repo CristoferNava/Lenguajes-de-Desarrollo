@@ -9,6 +9,8 @@ public class RestaurantController {
         String ID = input.nextLine();
 
         if (this.search(ID) == -1) {
+            System.out.println("Introduzca el nombre del restaurante:");
+            String name = input.nextLine();
             System.out.println("Introduzca el número de tablas:");
             String numberTables = input.nextLine();
             System.out.println("Introduzca la hora de apertura:");
@@ -16,7 +18,7 @@ public class RestaurantController {
             System.out.println("Introduzca la especialidad:");
             String specialty = input.nextLine();
 
-            var restaurant = new Restaurant(ID, numberTables, hour, specialty);
+            var restaurant = new Restaurant(ID, name, numberTables, hour, specialty);
             this.restaurants.add(restaurant);
             System.out.println("El restaurante se agregó correctamente.");
         } else {
@@ -25,15 +27,33 @@ public class RestaurantController {
     }
 
     public void searchRestaurant() {
-        System.out.println("Introduzca el ID del restaurante:");
-        String id = input.nextLine();
-
-        int index = this.search(id);
-
-        if (index != -1) {
-            System.out.println(this.restaurants.get(index));
+        System.out.println("Presione 1 para buscar por especialidad o 2 para buscar por ID");
+        String option = input.nextLine();
+        if (option.equals("1")) {
+            System.out.println("Introduzca la especialidad:");
+            String specialty = input.nextLine();
+            
+            // Buscamos todos los restaurantes que contengan esa especialidad
+            if (restaurants.size() == 0) {
+                System.out.println("No se ha encontrado ningún restaurante con esa especialidad");
+                return;
+            }
+            for (Restaurant r : restaurants) {
+                if (r.getSpecialty().equals(specialty)) {
+                    System.out.println(r);
+                }
+            }
         } else {
-            System.out.println("Restaurante no encontrado.");
+            System.out.println("Introduzca el ID del restaurante:");
+            String id = input.nextLine();
+    
+            int index = this.search(id);
+    
+            if (index != -1) {
+                System.out.println(this.restaurants.get(index));
+            } else {
+                System.out.println("Restaurante no encontrado.");
+            }
         }
     }
 
@@ -65,5 +85,4 @@ public class RestaurantController {
         }
         return -1;
     }
-
 }

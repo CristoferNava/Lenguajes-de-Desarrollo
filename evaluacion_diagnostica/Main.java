@@ -13,7 +13,7 @@ public class Main {
         String option = "d";
 
         while (!(option.equals("s") || option.equals("S"))) {
-            System.out.println("\nElija la opción a realizar:\n1) Agregar\n2) Buscar\n3) Eleminar\n4) Listar\ns) Salir");
+            System.out.println("\nElija la opción a realizar:\n1) Agregar\n2) Buscar\n3) Eliminar\n4) Listar\ns) Salir");
             option = input.nextLine();
 
             if (option.equals("1")) {

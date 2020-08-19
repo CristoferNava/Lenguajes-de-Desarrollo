@@ -1,11 +1,13 @@
 public class Restaurant {
     private String ID;
+    private String name;
     private String numberTables;
     private String hour;
     private String specialty;
 
-    public Restaurant(String ID, String numberTables, String hour, String specialty) {
+    public Restaurant(String ID, String name, String numberTables, String hour, String specialty) {
         this.ID = ID;
+        this.name = name;
         this.numberTables = numberTables;
         this.hour = hour;
         this.specialty = specialty;
@@ -39,8 +41,16 @@ public class Restaurant {
         this.specialty = specialty;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
     @Override
     public String toString() {
-        return String.format("%s", getSpecialty());
+        return String.format("Nombre: %s\nNúmero de Tablas: %s\nHora de Apertura: %s\nEspecialidad: %s\n", getName(), getNumberTables(), getHour(), getSpecialty());
     }
 }
