@@ -37,6 +37,26 @@ public class RestaurantController {
         }
     }
 
+    public void removeRestaurant() {
+        System.out.println("Introduzca el ID del restaurante a eliminar");
+        String ID = input.nextLine();
+        int index = this.search(ID);
+
+        if (index != -1) {
+            this.restaurants.remove(index);
+            System.out.println("El restaurante se eliminó correctamente.");
+        } else {
+            System.out.println("ID no existente.");
+        }
+    }
+
+    public void listRestaurants() {
+        System.out.println("Lista de restaurantes: ");
+        for (Restaurant r : restaurants) {
+            System.out.println(r);
+        }
+    }
+
     private int search(String ID) {
         for (int i = 0; i <= this.restaurants.size() - 1; i++) {
             if (this.restaurants.get(i).getID().equals(ID)) {
