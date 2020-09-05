@@ -1,3 +1,7 @@
+// Link para probar el código:
+// https://repl.it/@CristoferNava/Tarea1#Main.java
+
+
 public class HiloSuma implements Runnable {
     private Punto2d[] puntos;
     private double suma;

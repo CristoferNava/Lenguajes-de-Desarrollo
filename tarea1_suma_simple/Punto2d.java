@@ -1,3 +1,6 @@
+// Link para probar el código:
+// https://repl.it/@CristoferNava/Tarea1#Main.java
+
 import java.util.Random;
 
 public class Punto2d {

@@ -1,3 +1,13 @@
+// Link para probar el código:
+// https://repl.it/@CristoferNava/Tarea1#Main.java
+
+/*
+Pequeña nota sobre el uso de la palabra reservada var
+Hago uso de la palabra var para evitar verbosidad en el código así evitamos
+escribir dos veces el tipo de dato, por ejemplo
+en lugar de escribir: Punto2d t1 = new Punto2d() escribimos var t1 = new Punto2d()
+dicha característica está disponible a partir de la versión 10 de Java
+*/
 public class Main {
     public static void main(String[] args) {
         var puntos = new Punto2d[100];
