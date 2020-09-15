@@ -1,5 +1,3 @@
-package career;
-
 import java.util.Random;
 
 public class Consumidor implements Runnable {

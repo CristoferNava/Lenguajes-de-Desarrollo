@@ -1,5 +1,3 @@
-package career;
-
 public class Main {
     public static void main(String[] args) {
         // Creamos los objetos base
