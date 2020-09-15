@@ -1,3 +1,5 @@
+// Link para probar el código: https://repl.it/@CristoferNava/simulacionturbosina#Main.java
+
 public class Main {
     public static void main(String[] args) {
         // Creamos los objetos base

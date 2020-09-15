@@ -1,3 +1,5 @@
+// Link para probar el código: https://repl.it/@CristoferNava/simulacionturbosina#Main.java
+
 import java.util.Random;
 
 public class Productor implements Runnable {

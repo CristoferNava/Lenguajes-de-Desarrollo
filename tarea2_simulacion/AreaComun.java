@@ -1,3 +1,5 @@
+// Link para probar el código: https://repl.it/@CristoferNava/simulacionturbosina#Main.java
+
 public class AreaComun {
     private int contenedor1;
     private int contenedor2;
