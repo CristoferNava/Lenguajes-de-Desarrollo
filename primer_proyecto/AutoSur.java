@@ -2,7 +2,7 @@ import java.util.Random;
 
 // Hilo encargado de recoger personas de la central sur
 public class AutoSur implements Runnable {
-    private int ciclos; // cantidad de ciclos que se va a ejecutar el ciclo
+    private int ciclos; // cantidad de ciclos que se va a ejecutar la simulación
     private AreaComun areaComun;
     private Random probabilidad;
 

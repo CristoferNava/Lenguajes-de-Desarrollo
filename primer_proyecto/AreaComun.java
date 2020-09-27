@@ -1,5 +1,4 @@
 // Concentra las entidades de aeropuerto, centralNorte y centralSur
-// también dentro del archivo tenemos a la clase Persona
 public class AreaComun {
     private int aeropuerto; // contador de las personas en el aeropuerto. Máximo 700
     private int aeropuertoCentralNorte; // cantidad de personas en el aeropuerto que van a la central norte
@@ -9,7 +8,7 @@ public class AreaComun {
 
     // Propiedades que guardan las respuestas a las preguntas de la simulación:
     private int vuelosCentralNorte; // cantidad de vuelos realizados a la central norte
-    private int autobusesCentralSur; // cantidad de viajes de autobús realizados a la central su
+    private int autobusesCentralSur; // cantidad de viajes de autobús realizados a la central sur
     private int autosCentralNorte; // cantidad de personas que usaron autos para la central norte
     private int autosCentralSur; // cantidad de personas que usaron autos para le central sur
 
@@ -19,6 +18,7 @@ public class AreaComun {
         this.aeropuertoCentralSur = 0;
         this.centralNorte = 0;
         this.centralSur = 0;
+
         this.vuelosCentralNorte = 0;
         this.autobusesCentralSur = 0;
         this.autosCentralNorte = 0;
@@ -26,10 +26,10 @@ public class AreaComun {
     }
 
     // Deposita personas en el aeropuerto
-    public boolean depositaAeropuerto(int persona, int central) {
+    public synchronized boolean depositaAeropuerto(int persona, int central) {
         // revisamos que podamos agregar personas al aeropuerto
         if (this.aeropuerto + persona <= 700) {
-            this.aeropuerto += persona; // agregamos las persona
+            this.aeropuerto += persona; // agregamos la persona
             // revisamos si la persona va a la central norte o sur
             // 1 para norte y 2 para sur
             if (central == 1) this.aeropuertoCentralNorte++; // va a la central norte
@@ -40,7 +40,7 @@ public class AreaComun {
     }
 
     // lleva personas del aeropuerto a la central norte
-    public boolean avionACentralNorte(int cantidad) {
+    public synchronized boolean avionACentralNorte(int cantidad) {
         // revisamos que haya disponibles la cantidad de personas para llevar a la
         // central norte además de que la central norte tenga espacio para poder
         // recibirlas
@@ -55,7 +55,8 @@ public class AreaComun {
         return false;
     }
 
-    public boolean autobusCentralSur(int cantidad) {
+    // lleva personas en autobús a la central sur
+    public synchronized boolean autobusCentralSur(int cantidad) {
         // revisamos que haya disponibles la cantidad de personas para llevar a la
         // a la central sur y que la central sur tenga espacio para poder recibirlas
         if ((cantidad <= this.aeropuertoCentralSur) && (cantidad + this.centralSur <= 200)) {
@@ -69,12 +70,13 @@ public class AreaComun {
         return false;
     }
 
-
-    public void setAutosCentralNorte(int cantidadPersonas) {
+    // cantidad de personas recogidas en auto en la central norte
+    public synchronized void setAutosCentralNorte(int cantidadPersonas) {
         this.autosCentralNorte += cantidadPersonas;
     }
 
-    public void setAutosCentralSur(int cantidadPersonas) {
+    // cantidad de personas recogidas en auto en la central sur
+    public synchronized void setAutosCentralSur(int cantidadPersonas) {
         this.autobusesCentralSur += cantidadPersonas;
     }
 
@@ -99,6 +101,7 @@ public class AreaComun {
         return aeropuertoCentralSur;
     }
 
+    // imprime de forma concisa los resultados de la simulación efectuada
     @Override
     public String toString() {
         return String.format("Vuelos realizados a la central norte: %d\n" +

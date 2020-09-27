@@ -10,7 +10,7 @@ public class Autobus implements Runnable {
 
     @Override
     public void run() {
-        for (int i = 0; i < this.ciclos; i++) {
+        for (int i = 1; i <= this.ciclos; i++) {
             // Revisamos si el aeropuerto ha llegado al 85% de su capacidad
             // es decir a las 595 personas
             if (this.areaComun.getArepuerto() >= 595) {
