@@ -72,6 +72,8 @@ public class AreaComun {
 
     // cantidad de personas recogidas en auto en la central norte
     public synchronized void setAutosCentralNorte(int cantidadPersonas) {
+        // revisamos que exista la cantidad de personas disponibles para ser
+        // recogidas
         if (cantidadPersonas <= this.centralNorte) {
             this.autosCentralNorte += cantidadPersonas;
             // quitamos la cantidad de personas de la central norte
@@ -107,8 +109,8 @@ public class AreaComun {
         return autosCentralNorte;
     }
 
-    public synchronized int getAeropuertoCentralSur() {
-        return aeropuertoCentralSur;
+    public int getAutosCentralSur() {
+        return autosCentralSur;
     }
 
     // imprime de forma concisa los resultados de la simulación efectuada
@@ -121,6 +123,6 @@ public class AreaComun {
                              this.getVuelosCentralNorte(),
                              this.getAutobusesCentralSur(),
                              this.getAutosCentralNorte(),
-                             this.getAutosCentralNorte());
+                             this.getAutosCentralSur());
     }
 }

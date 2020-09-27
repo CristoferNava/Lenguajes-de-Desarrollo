@@ -14,14 +14,12 @@ public class RutaAlimentadora implements Runnable {
 
     @Override
     public void run() {
-        int counter = 0, centralN = 0, centralS = 0;
         int central;
         for (int i = 1; i <= this.ciclos; i++) {
             // cada 5 ciclos llega una persona al aeropuerto
             // esta persona tiene 65% de probalidades ir a la central norte
             // y 35% ir a la central sur
             if (i % 5 == 0) {
-                counter++;
                 // depositamos una persona en el aeropuerto
                 if (probabilidad.nextDouble() <= 0.65)  {
                     central = 1; // la persona va a la central norte

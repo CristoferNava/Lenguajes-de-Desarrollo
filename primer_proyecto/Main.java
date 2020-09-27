@@ -2,14 +2,14 @@ public class Main {
     public static void main(String[] args) {
         // Creamos los objetos base
         var areaComun = new AreaComun();
-        var rutaOnb = new RutaAlimentadora(1_000_000, areaComun);
+        var rutaObj = new RutaAlimentadora(1_000_000, areaComun);
         var autobusObj = new Autobus(1_000_000, areaComun);
         var avionObj = new Avion(1_000_000, areaComun);
         var autoNorteObj = new AutoNorte(1_000_000, areaComun);
         var autoSurObj = new AutoSur(1_000_000, areaComun);
 
         // creamos los hilos
-        var ruta = new Thread(rutaOnb);
+        var ruta = new Thread(rutaObj);
         var autobus = new Thread(autobusObj);
         var avion = new Thread(avionObj);
         var autoNorte = new Thread(autoNorteObj);
