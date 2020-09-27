@@ -24,7 +24,7 @@ public class Main {
 
         // esperamos a que los hilos terminen de ejecutarse
         while (ruta.isAlive() || autobus.isAlive() || avion.isAlive() || 
-              autoNorte.isAlive() || autoSur.isAlive())
+               autoNorte.isAlive() || autoSur.isAlive())
         {
             try {
                 Thread.sleep(10);

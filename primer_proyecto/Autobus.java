@@ -13,7 +13,7 @@ public class Autobus implements Runnable {
         for (int i = 1; i <= this.ciclos; i++) {
             // Revisamos si el aeropuerto ha llegado al 85% de su capacidad
             // es decir a las 595 personas
-            if (this.areaComun.getArepuerto() >= 595) {
+            if (this.areaComun.getAeropuerto() >= 595) {
                 this.areaComun.autobusCentralSur(70); // enviamos 70 personas en autobus
                 // tenemos que esperar 60 iteraciones
                 for (int j = 1; j <= 60; j++) {

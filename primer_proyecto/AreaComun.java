@@ -72,32 +72,42 @@ public class AreaComun {
 
     // cantidad de personas recogidas en auto en la central norte
     public synchronized void setAutosCentralNorte(int cantidadPersonas) {
-        this.autosCentralNorte += cantidadPersonas;
+        if (cantidadPersonas <= this.centralNorte) {
+            this.autosCentralNorte += cantidadPersonas;
+            // quitamos la cantidad de personas de la central norte
+            this.centralNorte -= cantidadPersonas;
+        }
     }
 
     // cantidad de personas recogidas en auto en la central sur
     public synchronized void setAutosCentralSur(int cantidadPersonas) {
-        this.autobusesCentralSur += cantidadPersonas;
+        // revisamos que exista la cantidad de personas disponibles para ser
+        // recogidas
+        if (cantidadPersonas <= this.centralSur) {
+            this.autosCentralSur += cantidadPersonas;
+            // quitamos la cantidad de personas de la central sur
+            this.centralSur -= cantidadPersonas;
+        }
     }
 
     // regresa la cantidad de personas que se encuentran en el aeropuerto
-    public int getArepuerto() {
+    public synchronized int getAeropuerto() {
         return this.aeropuerto;
     }
 
-    public int getVuelosCentralNorte() {
+    public synchronized int getVuelosCentralNorte() {
         return vuelosCentralNorte;
     }
 
-    public int getAutobusesCentralSur() {
+    public synchronized int getAutobusesCentralSur() {
         return autobusesCentralSur;
     }
 
-    public int getAutosCentralNorte() {
+    public synchronized int getAutosCentralNorte() {
         return autosCentralNorte;
     }
 
-    public int getAeropuertoCentralSur() {
+    public synchronized int getAeropuertoCentralSur() {
         return aeropuertoCentralSur;
     }
 
