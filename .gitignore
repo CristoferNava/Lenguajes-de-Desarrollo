@@ -1,3 +1,5 @@
 *.class
 test.java
 *test/
+*.vscode
+*.metals
