@@ -1,6 +1,4 @@
-case class Point2D(x: Double, y: Double) extends Ordered[Point2D] {
-    val z = (x*x) - (4*x) + (y*y) - (y) - (x*y)
-    
+case class Point2D(x: Double, y: Double) extends Ordered[Point2D] { 
     def +(ext: Point2D): Point2D =  new Point2D(this.x + ext.x, this.y + ext.y) 
 
 	def -(ext: Point2D): Point2D =  new Point2D(this.x - ext.x, this.y - ext.y)
