@@ -3,3 +3,4 @@ test.java
 *test/
 *.vscode
 *.metals
+*test.py

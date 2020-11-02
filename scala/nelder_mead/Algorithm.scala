@@ -3,10 +3,14 @@ import scala.math.pow
 
 object Algorithm {
     def nelderMead(f: (Point2D) => Double): Point2D = {
+      // Vértices iniciales, usé los que vienen en el pdf para comprobar 
+      // el correcto funcionamiento
       val v1 = new Point2D(0, 0)        
       val v2 = new Point2D(1.2, 0)
       val v3 = new Point2D(0, 0.8)
       
+      // función encargada de ordenas los puntos. Cada punto es pasado a la
+      // función f y los ordenamos para determinar B, G y W
       def sortVs(p1: Point2D, p2: Point2D): Boolean = {
         if (f(p1) > f(p2))
             return false
@@ -14,26 +18,29 @@ object Algorithm {
       }
       val values: List[Point2D] = List(v1, v2, v3).sortWith(sortVs)
       
+      // únicas variables utilizadas en todo el programa
       var B: Point2D = values(0) // Best
       var G: Point2D = values(1) // Good
       var W: Point2D = values(2) // Worst
 
+      // condición de terminación, hasta que nuestra distancia no se menor o 
+      // igual a 0.001 el ciclo sigue iterando
       while (distance(B, W) > 0.001) {
         val M: Point2D = Midpoint.move(B, G)
         val R: Point2D = Reflection.move(M, W)
 
         if (f(R) < f(G)) { // case (i)
-            // begin case (i)
-            if (f(B) < f(R)) 
+          // begin case (i)
+          if (f(B) < f(R)) 
+            W = R // replace W with R
+          else {
+            // compute E and f(E)
+            val E: Point2D = Expansion.move(R, M)
+            if (f(E) < f(B)) 
+              W = E // replace W with E
+            else 
               W = R // replace W with R
-            else {
-              // compute E and f(E)
-              val E: Point2D = Expansion.move(R, M)
-              if (f(E) < f(B)) 
-                W = E // replace W with E
-              else 
-                W = R // replace W with R
-            }
+          }
         } else { // case (ii)
           // begin case (ii)
           if (f(R) < f(W)) 

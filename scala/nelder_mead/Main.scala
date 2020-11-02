@@ -1,7 +1,7 @@
 object Main {
   def main(args: Array[String]): Unit = {
     val sphere = (v: Point2D) => (v.x*v.x) + (v.y*v.y)
-    val example = (v: Point2D) => (v.x*v.x) - (4.0*v.x) + (v.y*v.y) - (v.y) - (v.x*v.y)
+    val example = (v: Point2D) => (v.x*v.x) - (4*v.x) + (v.y*v.y) - (v.y) - (v.x*v.y)
     val rosenbrock = (v: Point2D) => (1-v.x) + 100*((v.y-(v.x*v.x))*(v.y-(v.x*v.x)))
 
     val minSphere: Point2D = Algorithm.nelderMead(sphere)
