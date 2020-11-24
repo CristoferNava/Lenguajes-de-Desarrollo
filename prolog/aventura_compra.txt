@@ -1,0 +1,105 @@
+:-dynamic estoy/1.
+:-dynamic tiene/2.
+:-dynamic tengo/2.
+:-dynamic tengoMonedas/1.
+
+estoy(inicio).
+
+haypuerta(inicio, lobby).
+haypuerta(lobby, inicio).
+haypuerta(lobby, sala).
+haypuerta(sala, lobby).
+haypuerta(sala, corredor).
+haypuerta(corredor, sala).
+haypuerta(corredor, cocina).
+haypuerta(cocina, corredor).
+haypuerta(cocina, patio).
+haypuerta(patio, cocina).
+
+/* cantidad de monedas por habitación */
+tiene(lobby, 3).
+tiene(patio, 5).
+tiene(corredor, 2).
+
+tengo(llave, 0).
+tengo(joya, 0).
+tengoMonedas(0). /* cantidad de monedas que tiene el jugador */
+
+estoyEnTienda(inicio). /* revisa si el jugador está en la tienda */
+
+precioItem(llave, 7). /* costo de una llave en la tienda */
+precioItem(joya, 3). /* costo de una joya en la tienda */
+
+comprar(Item):-
+    estoy(Posicion),
+    estoyEnTienda(Posicion),
+    precioItem(Item, Precio),
+    tengoMonedas(Dinero),
+  	Dinero >= Precio,
+	tengo(Item, Cantidad),
+    Res is Cantidad + 1,
+    retract(tengo(Item, Cantidad)),
+    asserta(tengo(Item, Res)),
+    write('Haz comprado una '),
+    write(Item),
+    nl.
+    
+    
+mover(Destino):-
+    estoy(Origen),
+    haypuerta(Origen, Destino),
+    retract(estoy(Origen)),
+    asserta(estoy(Destino)),
+    write('Caminé hacía: '),
+    write(Destino),
+    nl.
+
+tomar(Item):-
+    estoy(Posicion),
+    tiene(Posicion, Monedas),
+    Monedas > 0,
+	Res is Monedas - 1,
+    retract(tiene(Posicion, Monedas)),
+    asserta(tiene(Posicion, Res)),
+    tengoMonedas(X),
+    Cantidad is X + 1,
+    retract(tengoMonedas(X)),
+    asserta(tengoMonedas(Cantidad)),
+    write('Has tomado una '),
+    write(Item),
+    nl.
+
+/* Descripciones de las habitaciones */
+describe(inicio):-
+    write('Me encuentro en la entrada'),
+    nl.
+
+describe(lobby):-
+    write('Me encuentro en el lobby'),
+    nl.
+
+describe(sala):-
+    write('Me encuentro en la sala'),
+    nl.
+
+describe(corredor):-
+    write('Me encuentro en el corredor'),
+    nl.
+
+describe(cocina):-
+    write('Me encuentro en la cocina'),
+    nl.
+
+describe(patio):-
+    write('Me encuentro en el patio'),
+    nl.
+
+mirar:-
+    estoy(Posicion),
+    describe(Posicion),
+    write('Puedo ir a '),
+    nl,
+    haypuerta(Posicion, Destino),
+    write(Destino),
+    nl,
+    fail.
