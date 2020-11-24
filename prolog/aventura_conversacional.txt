@@ -1,0 +1,48 @@
+:-dynamic estoy/1.
+:-dynamic tiene/2.
+
+estoy(inicio).
+
+haypuerta(inicio, lobby).
+haypuerta(lobby, inicio).
+haypuerta(lobby, sala).
+haypuerta(sala, lobby).
+haypuerta(sala, corredor).
+haypuerta(corredor, sala).
+haypuerta(corredor, cocina).
+haypuerta(cocina, corredor).
+haypuerta(cocina, patio).
+haypuerta(patio, cocina).
+
+tiene(corredor, llave).
+tiene(cocina, moneda).
+
+mover(Destino):-
+    estoy(Origen),
+    haypuerta(Origen, Destino),
+    retract(estoy(Origen)),
+    asserta(estoy(Destino)),
+    write('Caminé hacía: '),
+    write(Destino),
+    nl.
+
+tomar(Item):-
+    estoy(Posicion),
+    tiene(Posicion, Item),
+    retract(tiene(Posicion, Item)),
+    asserta(tiene(jugador, Item)),
+    write('Has tomado la '),
+    write(Item),
+    nl.
+
+dejar(Item):-
+    tiene(jugador, Item),
+    estoy(Posicion),
+    retract(tiene(jugador, Item)),
+    asserta(tiene(Posicion, Item)),
+    write('Has dejado la '),
+    write(Item),
+    write(' en '),
+    write(Posicion),
+    nl.
+
