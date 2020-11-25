@@ -1,0 +1,243 @@
+:-dynamic presupuesto/1.
+:-dynamic tiempoDisponible/1.
+:-dynamic posicion/1.
+:-dynamic tiempoEnsamblaje/1.
+:-dynamic dineroGastado/1.
+:-dynamic presupuesto/1.
+:-dynamic dineroGastado/1.
+:-dynamic presupuestoInicial/1.
+:-dynamic tiempoInicial/1.
+
+/* Lista de conexiones entre las islas */
+/* Ejemplo: a se conecta con 15 min a b: (a, 15, b)*/
+/* A */
+conexion(a, 15, b).
+conexion(a, 20, b).
+conexion(a, 10, c).
+/* B */
+conexion(b, 15, d).
+/* C */
+conexion(c, 15, d).
+conexion(c, 20, d).
+/* D */
+conexion(d, 10, e).
+conexion(d, 15, e).
+conexion(d, 20, e).
+/* E */
+conexion(e, 10, h).
+conexion(e, 15, f).
+/* F */
+conexion(f, 10, g).
+conexion(f, 15, g).
+/* G */
+conexion(g, 15, i).
+/* H */
+conexion(h, 10, i).
+conexion(h, 15, i).
+
+/* Lista de descuentos de acuerdo al tiempo */
+descuento(10, 0).
+descuento(15, 1000).
+descuento(20, 3000).
+
+/* Valores iniciales del programa */
+presupuesto(0). /* Presupuesto del cliente */
+presupuestoInicial(0). /* Presupuesto del cliente, este no se sobreescribe */
+tiempoDisponible(0). /* Tiempo disponible del cliente */
+tiempoInicial(0). /* Tiempo inicial del cliente, este no se sobreescribe */
+posicion(a). /* Posición del vehículo */
+
+/* Costos acumulativos de dinero y tiempo */
+tiempoEnsamblaje(0). /* Acumulativo del tiempo de cada isla */
+dineroGastado(0). /* Dinero gastado en cada isla */
+
+/* Precios de cada Item durante el ensamblaje */
+/* A */
+precio(deportivo, 10000).
+precio(ciudad, 7000).
+/* B */
+precio(alerones, 7000).
+precio(stickers, 3000).
+precio(escape, 10000).
+/* C */
+precio(baseNormal, 5000).
+precio(baseCromo, 10000).
+precio(baseMetal, 20000).
+/* D */
+precio(v4, 20000).
+precio(v6, 50000).
+precio(v8, 80000).
+/* E */
+precio(azulCaribe, 20000).
+precio(rossoCorsa, 70000).
+precio(grisOxford, 50000).
+/* F */
+precio(pantallaNormal, 3000).
+precio(pantallaiTouch, 7000).
+precio(sistemaiCar, 15000).
+/* G */
+precio(ac, 30000).
+precio(noAC, 10000).
+/* H */
+precio(airbags4, 20000).
+precio(airbags6, 30000).
+/* I */
+precio(testNormal, 3000).
+precio(tanqueLleno, 5000).
+
+/* Descripciones de cada isla */
+describe(a):-
+    write('Bienvenido a la ruta de ensamblaje.'), nl, 
+    write('Isla A:'), nl,
+    write('Deportivo: $10,000'), nl,
+    write('Ciudad: $7,000'), nl,
+    write('Puedes elegir 10, 15 o 20 min'), nl, nl.
+
+describe(b):- 
+    write('Isla B:'), nl,
+    write('Alerones: $7,000'), nl,
+    write('Stickers: $3,000'), nl,
+    write('Puedes elegir sólo 15 min'), nl, nl.
+
+describe(c):- 
+    write('Isla C:'), nl,
+    write('Base Normal: $5,000'), nl,
+    write('Base Cromo: $10,000'), nl,
+    write('Base Metal: $20,000'), nl,
+    write('Puedes elegir 15 o 20 min'), nl, nl.
+
+describe(d):- 
+    write('Isla D:'), nl,
+    write('V4: $20,000'), nl,
+    write('V6: $50,000'), nl,
+    write('V8: $80,000'), nl,
+    write('Puedes elegir 10, 15 o 20 min'), nl, nl.
+
+describe(e):- 
+    write('Isla E:'), nl,
+    write('Azul Caribe: $20,000'), nl,
+    write('Rosso Corsa: $70,000'), nl,
+    write('Gris Oxford: $50,000'), nl,
+    write('Puedes elegir 10 o 15 min'), nl, nl.
+
+describe(f):- 
+    write('Isla F:'), nl,
+    write('Pantalla Normal: $3,000'), nl,
+    write('Pantalla iTouch: $7,000'), nl,
+    write('Pantalla iCar: $15,000'), nl,
+    write('Puedes elegir 10 o 15 min'), nl, nl.
+
+describe(g):- 
+    write('Isla G:'), nl,
+    write('A/C: $30,000'), nl,
+    write('NO A/C: $10,000'), nl,
+    write('Puedes elegir sólo 15 min'), nl, nl.
+
+describe(h):- 
+    write('Isla H:'), nl,
+    write('airbags4: $20,000'), nl,
+    write('airbags6: $30,000'), nl,
+    write('Puedes elegir 10 o 15 min'), nl, nl.
+
+describe(i):- 
+    write('Isla I:'), nl,
+    write('Test Normal: $7,000'), nl,
+    write('Tanque Lleno: $5,000'), nl,
+    write('Es la última isla, procede a finalizar.'), nl, nl.
+
+
+/* Punto de entrada del programa */
+comenzar(Presupuesto, Tiempo):-
+    tiempoInicial(W),
+    presupuesto(X),
+    tiempoDisponible(Y),
+    presupuestoInicial(Z),
+    retract(tiempoInicial(W)),
+    asserta(tiempoInicial(Tiempo)),
+    retract(presupuesto(X)),
+    asserta(presupuesto(Presupuesto)),
+    retract(tiempoDisponible(Y)),
+    asserta(tiempoDisponible(Tiempo)),
+    retract(presupuestoInicial(Z)),
+    asserta(presupuestoInicial(Presupuesto)),
+    describe(a).
+
+/* Elecciones del cliente para armar su vehículo */
+quiero(Item, Tiempo):-
+    /* Revisamos que se tenga el presupuesto para comprar el Item */
+    presupuesto(P),
+    descuento(Tiempo, Descuento),
+    precio(Item, Precio),
+    P >= (Precio - Descuento),
+    ResP is P - Precio - Descuento,
+    retract(presupuesto(P)),
+    asserta(presupuesto(ResP)),
+    
+    /* Revisamos que se tenga el tiempo disponible para ensamblar ese Item*/
+    tiempoDisponible(T),
+    T >= Tiempo,
+    ResT is T - Tiempo,
+    retract(tiempoDisponible(T)),
+    asserta(tiempoDisponible(ResT)),
+    
+    /* Aumentamos el tiempoTotal y el dineroGastado */
+    tiempoEnsamblaje(X),
+    NewT is X + Tiempo,
+    retract(tiempoEnsamblaje(X)),
+    asserta(tiempoEnsamblaje(NewT)),
+    dineroGastado(Y),
+    NewD is Y + (Precio - Descuento),
+    retract(dineroGastado(Y)),
+    asserta(dineroGastado(NewD)),
+  
+    /* Nos movemos a la siguiente isla*/ 
+    posicion(Pos),
+    mover(Pos, Tiempo).
+ 
+/* Nos mueve entre islas */
+mover(Pos, Tiempo):-
+    conexion(Pos, Tiempo, Des),
+    retract(posicion(Pos)),
+    asserta(posicion(Des)),
+    describe(Des).
+
+/* Finalizar, escoge sólo el Item pero no el tiempo */
+finalizar(Item):-
+    /* Revisamos que se tenga el presupuesto para comprar el Item */
+    presupuesto(P),
+    precio(Item, Precio),
+    P >= Precio,
+    ResP is P - Precio,
+    retract(presupuesto(P)),
+    asserta(presupuesto(ResP)),
+    
+    /* Aumentamos el tiempoTotal y el dineroGastado */
+    dineroGastado(Y),
+    NewD is Y + Precio,
+    retract(dineroGastado(Y)),
+    asserta(dineroGastado(NewD)),
+  
+    /* Imprimimos el reporte final */
+    reporte.
+    
+
+/* Reporte final */
+/* Da respuesta a las preguntas plantedas por el proyecto */
+reporte:-
+    write('Reporte Final: '), nl,
+    write('Costo total del vehículo: '),
+    dineroGastado(X),
+    write(X), nl,
+    write('Tiempo que tomará la construcción: '),
+    tiempoEnsamblaje(Y),
+    write(Y), nl,
+    write('Lista de las opciones elegidas por el usuario: '), nl,
+    write('Ruta que tomó el usuario: '), nl, 
+    presupuestoInicial(Z),
+    Sobrante1 is Z - X,
+    write('Dinero sobrante con respecto al presupuesto inicial: '),
+    write(Sobrante1), nl,
+    write('Tiempo sobrante con respecto al tiempo inicial: '),
+    tiempoInicial(W),
+    Sobrante2 is W - Y,
+    write(Sobrante2).
