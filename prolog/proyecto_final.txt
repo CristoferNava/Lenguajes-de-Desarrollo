@@ -267,7 +267,6 @@ ruta(A, B):-
     write(' ').
 
 reporteItems:-
-    write('hola'),
     compro(A, B),
     items(A, B),
     fail.
